@@ -41,6 +41,18 @@ func (ui *UI) keyBindings() error {
 			gocui.ModNone,
 			ui.closeModal,
 		},
+		{
+			&views,
+			gocui.KeyCtrlH,
+			gocui.ModNone,
+			ui.help,
+		},
+		{
+			&[]string{HELPVIEW},
+			gocui.KeyCtrlQ,
+			gocui.ModNone,
+			ui.closeModal,
+		},
 	}
 
 	for _, binding := range c {

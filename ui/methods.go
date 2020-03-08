@@ -8,6 +8,7 @@ import (
 
 	"github.com/Habu-Kagumba/domains/suggestions"
 	"github.com/jroimartin/gocui"
+	"github.com/ttacon/chalk"
 )
 
 func handleErrors(err error) {
@@ -39,7 +40,7 @@ func getFile(p string) (f *os.File) {
 }
 
 func (ui *UI) search(g *gocui.Gui, v *gocui.View) error {
-	ui.writeConsole("Searching...", false)
+	ui.writeConsole("Searching...", false, false)
 	ui.clearView(SUGGESTIONSVIEW)
 
 	p := getAbsPath("suggestions/extensions/pref-ix-suff.json")
@@ -54,21 +55,28 @@ func (ui *UI) search(g *gocui.Gui, v *gocui.View) error {
 	s := suggestions.Suggestions(ui.parseDomain(INPUTVIEW), e)
 
 	ui.closeView(INPUTVIEW)
-	ui.writeConsole("Done", false)
+	ui.writeConsole("Done", false, true)
 	ui.writeView(SUGGESTIONSVIEW, strings.Join(s[:], "\n"))
 
 	return nil
 }
 
+func (ui *UI) help(g *gocui.Gui, v *gocui.View) error {
+	ui.showModal(HELPVIEW, 0.7, 0.1)
+	return nil
+}
+
 func decorate(s string, color string) string {
 	switch color {
-	case "blue":
-		s = "\x1b[0;32m" + s
+	case "green":
+		s = chalk.Green.Color(s)
 	case "red":
-		s = "\x1b[0;31m" + s
+		s = chalk.Red.Color(s)
+	case "cyan":
+		s = chalk.Cyan.Color(s)
 	default:
 		return s
 	}
 
-	return s + "\x1b[0m"
+	return s
 }

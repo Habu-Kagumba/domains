@@ -13,6 +13,7 @@ const (
 	AVAILABLEVIEW        = "available"
 	SUGGESTIONSVIEW      = "suggestions"
 	FOOTERVIEW           = "footer"
+	HELPVIEW             = "help"
 )
 
 type properties struct {
@@ -73,6 +74,15 @@ var viewsProps = map[string]properties{
 		editable: false,
 		modal:    false,
 	},
+	HELPVIEW: {
+		title: "Key Mappings",
+		content: `
+		Ctrl+/: Input new domain to search
+		Ctrl+Q: Exit
+		`,
+		editable: false,
+		modal:    true,
+	},
 }
 
 var views = []string{
@@ -129,6 +139,7 @@ func (ui *UI) createView(name string, x1, y1, x2, y2 int) error {
 		vp := viewsProps[name]
 		v.Title = vp.title
 		v.Editable = vp.editable
+		v.Autoscroll = true
 		if vp.editable {
 			v.Editor = &ed
 		}
@@ -191,9 +202,13 @@ func (ui *UI) showModal(name string, width, height float64) {
 	ui.setView(name)
 }
 
-func (ui *UI) writeConsole(content string, isError bool) {
+func (ui *UI) writeConsole(content string, isError bool, isSuccess bool) {
 	if isError {
 		content = decorate(content, "red")
+	} else if isSuccess {
+		content = decorate(content, "green")
+	} else {
+		content = decorate(content, "cyan")
 	}
 
 	ui.writeView(FOOTERVIEW, content)
