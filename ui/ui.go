@@ -44,7 +44,7 @@ func (ui *UI) initGui() {
 	// Defaults
 	ui.gui.Cursor = true
 	ui.gui.BgColor = gocui.ColorDefault
-	ui.gui.FgColor = gocui.ColorDefault
+	ui.gui.FgColor = gocui.Attribute(15 + 1)
 
 	// Set Layout function
 	ui.gui.SetManagerFunc(ui.Layout)
