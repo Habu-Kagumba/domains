@@ -16,6 +16,7 @@ type NameExtensions struct {
 	Extensions []string `json:"extensions"`
 }
 
+// TODO Refactor this
 func handleErrors(err error) {
 	if err != nil {
 		log.Fatalln(err)

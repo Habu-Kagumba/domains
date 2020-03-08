@@ -11,6 +11,7 @@ import (
 	"github.com/ttacon/chalk"
 )
 
+// TODO refactor this
 func handleErrors(err error) {
 	if err != nil {
 		log.Fatalln(err)
