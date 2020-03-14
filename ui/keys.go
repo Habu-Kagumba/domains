@@ -11,17 +11,12 @@ type config struct {
 
 func (ui *UI) keyBindings() error {
 	var c = []config{
+		// All Views
 		{
 			&views,
 			gocui.KeyCtrlQ,
 			gocui.ModNone,
 			ui.quit,
-		},
-		{
-			&tabbableViews,
-			gocui.KeyTab,
-			gocui.ModNone,
-			ui.wrapEditor,
 		},
 		{
 			&views,
@@ -30,6 +25,20 @@ func (ui *UI) keyBindings() error {
 			ui.inputDomain,
 		},
 		{
+			&views,
+			gocui.KeyCtrlH,
+			gocui.ModNone,
+			ui.help,
+		},
+		// Tabbable Views
+		{
+			&tabbableViews,
+			gocui.KeyTab,
+			gocui.ModNone,
+			ui.wrapEditor,
+		},
+		// INPUTVIEW
+		{
 			&[]string{INPUTVIEW},
 			gocui.KeyEnter,
 			gocui.ModNone,
@@ -37,19 +46,14 @@ func (ui *UI) keyBindings() error {
 		},
 		{
 			&[]string{INPUTVIEW},
-			gocui.KeyCtrlQ,
+			gocui.KeyEsc,
 			gocui.ModNone,
 			ui.closeModal,
 		},
-		{
-			&views,
-			gocui.KeyCtrlH,
-			gocui.ModNone,
-			ui.help,
-		},
+		// HELPVIEW
 		{
 			&[]string{HELPVIEW},
-			gocui.KeyCtrlQ,
+			gocui.KeyEsc,
 			gocui.ModNone,
 			ui.closeModal,
 		},
